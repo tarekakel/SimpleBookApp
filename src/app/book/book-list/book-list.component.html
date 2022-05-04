@@ -1,0 +1,119 @@
+<div style="margin-top: 100px;" class="container">
+  <p-table
+    #dt
+    [value]="books"
+    [rows]="10"
+    [paginator]="true"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Books</h5>
+        <br />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">
+          Book Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="year">
+          Year <p-sortIcon field="year"></p-sortIcon>
+        </th>
+        <th pSortableColumn="price">
+          Author Name <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th>Favourite</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book>
+      <tr>
+        <td>{{ book.BookTitle }}</td>
+        <td>{{ book.Year }}</td>
+        <td>{{ book.AuthorName }}</td>
+        <td>
+          <i
+            [ngClass]="!book.IsFavorite ? 'pi pi-heart' : 'pi pi-heart-fill'"
+            style="font-size: 1rem;cursor: pointer;"
+            (click)="
+              !book.IsFavorite
+                ? displayDialoge(book)
+                : removeFromFavourite(book)
+            "
+          ></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ books ? books.length : 0 }} Books.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="display"
+  [style]="{ width: '450px', height: '650px' }"
+  header="favourites Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content"
+    ><p-dropdown
+      [options]="favourites"
+      [(ngModel)]="selectedFav"
+      optionLabel="Name"
+      [filter]="true"
+      filterBy="Name"
+      [showClear]="true"
+      placeholder="Select a Favourite"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div>
+          <div>{{ selectedFav.Name }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-fav pTemplate="item">
+        <div>
+          <div>{{ fav.Name }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+    <br />
+    <Label>Order In Favourite List</Label>
+    <br />
+    <p-inputNumber [(ngModel)]="val"></p-inputNumber>
+    <br />
+    <a
+      pButton
+      pRipple
+      label="Add New Favourite List"
+      [routerLink]="'favourite'"
+      class="p-button-text"
+    ></a>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+    ></button>
+
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveDialoge()"
+    ></button>
+  </ng-template>
+</p-dialog>

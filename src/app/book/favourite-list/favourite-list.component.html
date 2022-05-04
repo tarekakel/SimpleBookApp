@@ -1,0 +1,100 @@
+<div style="margin-top: 100px;" class="container">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openNew()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="favourites"
+    [rows]="10"
+    [paginator]="true"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Favourites</h5>
+        <br />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th>
+          Remove
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-fav>
+      <tr>
+        <td>{{ fav.Name }}</td>
+        <td>
+          <i
+            class="pi pi-trash"
+            style="font-size: 1rem;color: red;cursor: pointer;"
+            (click)="ClearFavourite(fav)"
+          ></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ favourites ? favourites.length : 0 }} Books.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  [(visible)]="display"
+  [style]="{ width: '450px' }"
+  header="Favourite Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="newFavourite.Name"
+        required
+        autofocus
+      />
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancel()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveFavourite()"
+    ></button>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "bookTitle": "Dune",
+    "year": 1965,
+    "authorName": "Frank Herbert"
+  },
+  {
+    "id": 2,
+    "bookTitle": "Ender's Game",
+    "year": 1985,
+    "authorName": "Orson Scott Card"
+  },
+  {
+    "id": 3,
+    "bookTitle": "1984",
+    "year": 1949,
+    "authorName": "George Orwell"
+  },
+  {
+    "id": 4,
+    "bookTitle": "Fahrenheit 451",
+    "year": 1953,
+    "authorName": "Ray Bradbury"
+  },
+  {
+    "id": 5,
+    "bookTitle": "Brave New World",
+    "year": 1932,
+    "authorName": "Aldous Huxley"
+  }
+]
