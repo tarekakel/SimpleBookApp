@@ -37,6 +37,9 @@
         <th>
           Remove
         </th>
+        <th>
+          Add
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-fav>
@@ -47,6 +50,13 @@
             class="pi pi-trash"
             style="font-size: 1rem;color: red;cursor: pointer;"
             (click)="ClearFavourite(fav)"
+          ></i>
+        </td>
+        <td>
+          <i
+            class="pi pi-link"
+            style="font-size: 1rem;color: green;cursor: pointer;"
+            (click)="AddBookToFavourite(fav)"
           ></i>
         </td>
       </tr>
@@ -95,6 +105,94 @@
       icon="pi pi-check"
       class="p-button-text"
       (click)="saveFavourite()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="bookDialoge"
+  header="Book Details"
+  [style]="{ width: '800px' }"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <p-table
+    #dt
+    [value]="books"
+    [rows]="10"
+    [paginator]="true"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [(selection)]="selectedBooks"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Books</h5>
+        <br />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th>Order</th>
+        <th pSortableColumn="name">
+          Book Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="year">
+          Year <p-sortIcon field="year"></p-sortIcon>
+        </th>
+        <th pSortableColumn="price">
+          Author Name <p-sortIcon field="price"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book let-ri="rowIndex">
+      <tr>
+        <td>
+          <p-checkbox
+            (onChange)="checkChange(book)"
+            [value]="book"
+          ></p-checkbox>
+        </td>
+        <td>
+          <p-inputNumber
+            [style]="{ width: '50px' }"
+            [(ngModel)]="bookOrder[ri]"
+          ></p-inputNumber>
+        </td>
+        <td>{{ book.BookTitle }}</td>
+        <td>{{ book.Year }}</td>
+        <td>{{ book.AuthorName }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ books ? books.length : 0 }} Books.
+      </div>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="bookDialoge = false"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="bookDialoge = false; AddbooksToFavorite()"
     ></button>
   </ng-template>
 </p-dialog>

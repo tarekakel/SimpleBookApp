@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BookRoutingModule } from './book-routing.module';
 
-import { TableModule } from 'primeng/table';
+import { TableCheckbox, TableHeaderCheckbox, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { BookListComponent } from './book-list/book-list.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,6 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavouriteService } from '../services/favourite.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClient } from '@angular/common/http';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [BookListComponent, FavouriteListComponent],
@@ -33,8 +35,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    CheckboxModule
   ],
-  providers: [BookService, FavouriteService]
+  providers: [BookService, FavouriteService, HttpClient]
 })
 export class BookModule {}

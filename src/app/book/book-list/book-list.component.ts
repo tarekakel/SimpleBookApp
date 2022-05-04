@@ -10,7 +10,7 @@ import { AppState } from 'src/app/State/app.state';
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
-export class BookListComponent implements OnInit {
+export class BookListComponent {
   books: Book[] = [];
   favourites: Favourite[] = [];
   selectedBook?: Book;
@@ -25,7 +25,6 @@ export class BookListComponent implements OnInit {
       });
   }
 
-  ngOnInit() {}
   displayDialoge(book: Book) {
     this.selectedBook = book;
     this.display = true;
