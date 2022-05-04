@@ -8,6 +8,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `npm install` for download dependecis.
 
 
+## Es Lint Check
+
+Run `ng lint` for download dependecis.
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
